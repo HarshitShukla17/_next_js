@@ -9,6 +9,7 @@ import './globals.css'
 import React from 'react'
 import {Inter,Space_Grotesk} from 'next/font/google'
 import { Metadata } from 'next'
+import { ThemeProvider } from '@/context/ThemeProvider'
 
 export const meta: Metadata = {
   title: 'DevFlow',
@@ -40,7 +41,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <ClerkProvider
+    
+      <html lang="en">
+        <body className={`${inter.variable} ${spaceGrotesk}`}>
+        <ClerkProvider
       appearance={
         {
           elements:{
@@ -50,9 +54,7 @@ export default function RootLayout({
         }
       }
     >
-      <html lang="en">
-        <body className={`${inter.variable} ${spaceGrotesk}`}>
-          
+          <ThemeProvider>
           <SignedOut>
             <SignInButton />
           </SignedOut>
@@ -60,8 +62,10 @@ export default function RootLayout({
             <UserButton />
           </SignedIn>
           {children}
+          </ThemeProvider>
+          </ClerkProvider>
         </body>
       </html>
-    </ClerkProvider>
+    
   )
 }
